@@ -1,0 +1,250 @@
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --accent: #1D9E75; --accent-light: #E1F5EE; --accent-dark: #085041;
+    --accent2: #378ADD; --header-bg: #0F6E56;
+    --pill-bg: #E1F5EE; --pill-text: #085041;
+    --tag-bg: #f1efeb; --tag-text: #5F5E5A;
+    --muted: #888780; --border: rgba(0,0,0,0.1);
+    --body-bg: #f8f7f4; --sidebar-bg: #ffffff; --main-bg: #ffffff;
+    --text: #2C2C2A; --text-secondary: #5F5E5A; --section-title: #1D9E75;
+  }
+  body { font-family: Georgia, serif; font-size: 13px; color: var(--text); background: var(--body-bg); }
+  #cv-wrap { display: grid; grid-template-columns: 215px 1fr; min-height: 100vh; }
+
+  /* HEADER */
+  #cv-header {
+    grid-column: 1 / -1; background: var(--header-bg); color: white;
+    padding: 20px 24px 16px; display: flex; align-items: flex-start; justify-content: space-between;
+  }
+  #cv-header h1 { font-family: 'Courier New', monospace; font-size: 24px; font-weight: 700; letter-spacing: -0.5px; }
+  #cv-header .subtitle { font-size: 11px; font-style: italic; font-weight: 700; opacity: 0.85; margin-top: 3px; }
+  .badge-dispo {
+    display: inline-block; margin-top: 10px; font-weight: 700;
+    background: rgba(255,255,255,0.18); border: 1px solid rgba(255, 255, 255, 0);
+    color: white; font-size: 10px; padding: 4px 10px; border-radius: 20px;
+    font-family: 'Courier New', monospace;
+  }
+  .contact-right { text-align: right; font-size: 11px; opacity: 0.9; line-height: 1.9; }
+  .contact-right a { color: #f7f9f9; text-decoration: none; }
+
+  /* SIDEBAR */
+  #sidebar { background: var(--sidebar-bg); border-right: 0.5px solid var(--border); padding: 20px 14px; }
+  .sec-title {
+    font-family: 'Courier New', monospace; font-size: 9.5px; letter-spacing: 1.8px;
+    text-transform: uppercase; color: var(--section-title); font-weight: 700;
+    margin: 18px 0 8px; border-bottom: 1px solid var(--accent-light); padding-bottom: 4px;
+  }
+  .sec-title:first-child { margin-top: 0; }
+  .skill-cat { font-size: 11.5px; font-weight: 700; color: var(--text); margin: 8px 0 3px; font-family: 'Courier New', monospace; }
+  .skill-list { font-size: 11px; color: var(--text-secondary); line-height: 1.6; }
+  .pill-wrap { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
+  .pill {
+    background: var(--pill-bg); color: var(--pill-text); font-size: 10.5px;
+    padding: 3px 9px; border-radius: 20px; border: 0.5px solid #9FE1CB;
+    font-family: 'Courier New', monospace; cursor: text;
+  }
+  .lang-name { font-size: 12px; font-weight: 700; color: var(--text); }
+  .lang-level { font-size: 11px; color: var(--text-secondary); margin-bottom: 6px; }
+  .interest-item { font-size: 11.5px; color: var(--text-secondary); margin-bottom: 5px; line-height: 1.5; }
+  .interest-item b { color: var(--text); }
+  .edu-school { font-size: 12px; font-weight: 700; color: var(--text); line-height: 1.4; }
+  .edu-spec { font-size: 11px; color: var(--accent-dark); }
+  .edu-lieu { font-size: 10.5px; color: var(--muted); margin-bottom: 10px; }
+
+  /* MAIN */
+  #main { background: var(--main-bg); padding: 20px 22px; }
+  .main-sec-title {
+    font-family: 'Courier New', monospace; font-size: 9.5px; letter-spacing: 1.8px;
+    text-transform: uppercase; color: var(--section-title); font-weight: 700;
+    margin: 18px 0 10px; border-bottom: 1px solid var(--accent-light); padding-bottom: 4px;
+  }
+  .main-sec-title:first-child { margin-top: 0; }
+  .profile-text { font-size: 12.5px; line-height: 1.7; color: var(--text); }
+
+  /* Exp */
+  .exp-block { margin-bottom: 14px; }
+  .exp-header { display: flex; justify-content: space-between; align-items: baseline; }
+  .exp-title { font-size: 13px; font-weight: 700; color: var(--text); font-family: 'Courier New', monospace; }
+  .exp-date { font-size: 10.5px; color: var(--muted); white-space: nowrap; }
+  .exp-company { font-size: 11.5px; color: var(--accent2); font-style: italic; margin: 1px 0 5px; }
+  .exp-bullets { list-style: none; padding: 0; }
+  .exp-bullets li {
+    font-size: 12px; color: var(--text-secondary); margin-bottom: 4px;
+    padding-left: 14px; position: relative; line-height: 1.55;
+  }
+  .exp-bullets li::before { content: '▸'; position: absolute; left: 0; color: var(--accent); font-size: 10px; top: 2px; }
+  .exp-tags { margin-top: 6px; font-size: 10.5px; color: var(--muted); font-style: italic; font-family: 'Courier New', monospace; }
+  .exp-tags span::before { content: ' · '; }
+  .exp-tags span:first-child::before { content: '→ '; }
+
+  /* Project */
+  .proj-card {
+    border: 0.5px solid var(--border); border-radius: 8px;
+    padding: 12px 14px; background: var(--body-bg); margin-bottom: 10px;
+  }
+  .proj-card-title { font-family: 'Courier New', monospace; font-size: 12px; font-weight: 700; color: var(--text); }
+  .proj-card-desc { font-size: 11.5px; color: var(--text-secondary); line-height: 1.55; margin-top: 5px; }
+  .proj-card-desc li { padding-left: 14px; position: relative; margin-bottom: 3px; }
+  .proj-card-desc li::before { content: '▸'; position: absolute; left: 0; color: var(--accent); font-size: 10px; top: 2px; }
+  .tag-row { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px; }
+  .tag { background: var(--tag-bg); color: var(--tag-text); font-size: 9.5px; padding: 2px 7px; border-radius: 4px; font-family: 'Courier New', monospace; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+  .tag.t-py { background: #E6F1FB; color: #185FA5; }
+  .tag.t-ml { background: #EEEDFE; color: #3C3489; }
+  .tag.t-sql { background: #EAF3DE; color: #27500A; }
+  .tag.t-viz { background: #FAEEDA; color: #633806; }
+  .tag.t-cloud { background: #E1F5EE; color: #085041; }
+
+  /* Editable */
+  [contenteditable] { outline: none; border-bottom: 1px dashed transparent; transition: border-color 0.2s; }
+  [contenteditable]:hover { border-bottom: 1px dashed var(--accent); }
+  [contenteditable]:focus { border-bottom: 1px solid var(--accent); background: rgba(29,158,117,0.04); }
+</style>
+
+<div id="cv-wrap">
+
+  <!-- HEADER -->
+  <div id="cv-header">
+    <div>
+      <h1>Louis-David Mvemba</h1>
+      <div class="subtitle">Apprentissage – Data Gouvernance – 24 mois (A partir de septembre 2026)</div>
+      <div class="badge-dispo">Data Gouvernance · RGPD · MERISE/UML · SQL · Gestion de projet</div><br>
+    </div>
+    <div class="contact-right">
+      <div>Emerainville, Île-de-France (Mobile sur Lyon)</div>
+      <div><a href="mailto:louismvemba@gmail.com">louismvemba@gmail.com</a></div>
+      <div>+33 7 53 75 78 14</div>
+      <div><a href="https://github.com/kingshasha11">github.com/kingshasha11</a></div>
+    </div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <div id="sidebar">
+
+    <div class="sec-title">Compétences techniques</div>
+
+    <div class="skill-cat">Gouvernance des données</div>
+    <div class="skill-list">Sensibilité aux enjeux de conformité, sécurité et contrôle des accès · Compréhension des cadres de gouvernance Data · Coordination des acteurs métiers et IT</div>
+
+    <div class="skill-cat">Data Privacy & RGPD</div>
+    <div class="skill-list">Compréhension des principes Privacy by Design · Sensibilité aux exigences réglementaires liées à la protection des données personnelles</div>
+
+    <div class="skill-cat">Modélisation & Gestion des données</div>
+    <div class="skill-list">SQL (interrogation et structuration de bases de données) · Concepts MCD/MLD · UML, MERISE</div>
+
+    <div class="skill-cat">Qualité des données</div>
+    <div class="skill-list">Fiabilité, cohérence et accessibilité des données · Gestion des demandes de mise à disposition de données</div>
+
+    <div class="skill-cat">Outils</div>
+    <div class="skill-list">Microsoft Office (Excel, Word, PowerPoint, Teams, SharePoint)</div>
+
+    <div class="sec-title">Formation</div>
+    <div>
+      <div class="edu-school">ESIEA – Ivry-sur-Seine</div>
+      <div class="edu-spec">Diplôme d'Ingénieur (Bac+5) · Spécialisation Data & IA</div>
+      <div class="edu-lieu">sept. 2025 – sept. 2028</div>
+    </div>
+    <div>
+      <div class="edu-school">IUC – Douala, Cameroun</div>
+      <div class="edu-spec">Classes Prépas Scientifiques (Bac+2) · Maths, Physique, SI, Info</div>
+      <div class="edu-lieu">sept. 2023 – avril 2025</div>
+    </div>
+    <div>
+      <div class="edu-school">Lycee Chevreul – Douala, Cameroun</div>
+      <div class="edu-spec">Baccalauréat Scientifique · Maths, Physique-Chimie, Info</div>
+      <div class="edu-lieu">sept. 2020 – mai 2023</div>
+    </div>
+
+    <div class="sec-title">Soft Skills</div>
+    <div class="pill-wrap">
+      <span class="pill">Rigueur</span>
+      <span class="pill">Sens du détail</span>
+      <span class="pill">Esprit analytique</span>
+      <span class="pill">Autonomie et Proactivité</span>
+      <span class="pill"> Force de proposition</span>
+      <span class="pill">Bon relationnel et esprit d'équipe</span>
+    </div>
+
+    <div class="sec-title">Langues</div>
+    <div>
+      <div class="lang-name">Français</div>
+      <div class="lang-level">Natif</div>
+    </div>
+    <div>
+      <div class="lang-name">Anglais</div>
+      <div class="lang-level">B2</div>
+    </div>
+
+    <div class="sec-title">Centre d'intérêt</div>
+    <div class="interest-item"><b>Football : </b> pratique régulière, esprit d'équipe, endurance et discipline.</div>
+
+  </div>
+
+  <!-- MAIN -->
+  <div id="main">
+
+    <div class="main-sec-title">Profil</div>
+    <p class="profile-text">
+      Étudiant ingénieur en 3ème année spécialisé en Data & IA, je possède un grand intérêt pour la data et les enjeux de gouvernance des données.
+    </p>
+
+    <div class="main-sec-title">Expérience professionnelle</div>
+
+    <div class="exp-block">
+      <div class="exp-header">
+        <div class="exp-title">Stage – Data Analyst</div>
+        <div class="exp-date">Mai – Juillet 2025</div>
+      </div>
+      <div class="exp-company">CCA Bank S.A. – Douala, Cameroun</div>
+      <ul class="exp-bullets">
+        <li>Analyser les données clients (transactions, profils, historiques) afin d'identifier les comportements financiers et détecter les tendances d'usage des services bancaires.</li>
+        <li>Construire et optimiser des requêtes SQL pour extraire, nettoyer et structurer les données issues des systèmes internes.</li>
+        <li>Réaliser des analyses exploratoires avec Python pour suivre des indicateurs clés (activité des comptes, taux d'attrition, utilisation des produits).</li>
+        <li>Contribuer à la mise en place de tableaux de bord Power BI pour le suivi de la performance commerciale et des risques.</li>
+        <li>Participer à la segmentation des clients pour améliorer le ciblage marketing et les offres.</li>
+        <li>Automatiser certaines tâches de reporting pour fiabiliser et accélérer la production des analyses.</li>
+        <li>Collaborer avec les équipes métier (risque, conformité, marketing) pour traduire les besoins en analyses exploitables et formuler des recommandations.</li>
+      </ul>
+      <div class="exp-tags">
+        <span>Python</span><span>SQL</span><span>Power BI</span><span>Segmentation</span><span>Reporting</span>
+      </div>
+    </div>
+
+    <div class="main-sec-title">Projet Data Science & IA</div>
+
+    <div class="proj-card">
+      <div class="proj-card-title"><a href="https://github.com/kingshasha11/airbnb-investment-analysis">Modèle de prédiction du chiffre d'affaires e-commerce</a></div>
+      <div class="tag-row">
+        <span class="tag t-py">Python</span>
+        <span class="tag t-sql">Scikit-learn</span>
+        <span class="tag t-ml">SQL</span>
+        <span class="tag t-viz">Power BI</span>
+      </div>
+      <ul class="proj-card-desc" style="list-style:none; padding:0; margin-top:8px;">
+        <li>Analyse de plus de 50 000 commandes clients afin d'identifier les principaux leviers de performance commerciale.</li>
+        <li>Identification des clients et produits les plus rentables et estimer leur contribution au chiffre d'affaires futur.</li>
+        <li>Nettoyage et structuration des données, puis développement d'un modèle de prédiction du chiffre d'affaires.</li>
+        <li>Réalisation des analyses ciblées (top 20 clients, produits) pour prioriser les actions business à fort impact.</li>
+        <li>Conception un dashboard interactif sur Power BI pour le suivi des performances.</li>
+      </ul>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-card-title"><a href="https://github.com/kingshasha11/airbnb-investment-analysis">Analyse et Recommendations Investissement Airbnb</a></div>
+      <div class="tag-row">
+        <span class="tag t-py">Python</span>
+        <span class="tag t-ml">Pandas</span>
+        <span class="tag t-viz">NumPy</span>
+        <span class="tag t-viz">Seaborn/Matplotlib</span>
+      </div>
+      <ul class="proj-card-desc" style="list-style:none; padding:0; margin-top:8px;">
+        <li>Analyse des données de logements Airbnb (prix, localisation, disponibilité) afin d’identifier les tendances du marché et les zones à fort potentiel.</li>
+        <li>Étude des facteurs influençant les performances (prix, avis, équipements) pour optimiser la rentabilité des annonces.</li>
+        <li>Nettoyage et structuration des données, puis développement de modèles d’analyse pour prédire les prix ou le taux d’occupation.</li>
+        <li>Réalisation des analyses ciblées (quartiers, types de logements) pour formuler des recommandations stratégiques aux hôtes.</li>
+      </ul>
+    </div>
+
+  </div>
+
+</div>
